@@ -1,0 +1,43 @@
+## Author: Scott Finley
+## Date: 1/30/2016 
+## Program Name: Loan Amortization Schedule
+
+## Updated Last: 2/4/2016 PG50 for reference...
+
+## Main class
+
+def maincalc():
+
+    ## User enters the desired numbers for the calculation.
+    loanAmount = eval(input("Please enter the loan amount: "))
+    annualInterestRate = eval(input("Please enter the interest rate: "))
+    numberOfYears = eval(input("Please enter the term length you would like: "))
+    
+    # Calculates Monthly interest rate
+    monthlyInterestRate = annualInterestRate / 1200
+    
+    #Calculate the main Payment
+    monthlyPayment = loanAmount * monthlyInterestRate / (1 - 1/(1 + monthlyInterestRate) ** (numberOfYears * 12))
+
+    totalPayment = monthlyPayment * numberOfYears * 12
+
+    # Displays the results
+    print('Monthly Payments will be:', int(monthlyPayment * 100) / 100)
+    print('Total Payments will be:', int(totalPayment * 100) / 100)
+    print('Payment#      ' , 'Interests      ' , 'Principal       ' , 'Balance' )
+    print('--------------------------------------------------------------------')
+
+    balance = loanAmount
+
+    # loop calculation for the loan Schedule
+    for i in range(1, numberOfYears * 12 + 1):
+
+        interest = monthlyInterestRate * balance
+
+        principal = monthlyPayment - interest
+
+        balance = balance - principal
+        
+        print(i, "\t\t", int(interest * 100)/100, "\t\t", int(principal * 100)/100, "\t\t", int(balance * 100)/100)
+        
+maincalc()
